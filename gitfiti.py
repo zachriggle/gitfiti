@@ -304,6 +304,7 @@ def commit(commitdate):
 def fake_it(image, start_date, username, repo, git_url, offset=0, multiplier=1):
     template = (
         '#!/bin/bash\n'
+        'git branch -D fiti\n'
         'git checkout --orphan fiti\n'
         'touch README.md\n'
         'git add README.md\n'
