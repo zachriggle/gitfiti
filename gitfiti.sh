@@ -1,7 +1,5 @@
 #!/bin/bash
-REPO=gitfiti
-git init $REPO
-cd $REPO
+git checkout --orphan fiti
 touch README.md
 git add README.md
 touch gitfiti
@@ -840,6 +838,5 @@ GIT_AUTHOR_DATE=2016-03-10T12:00:00 GIT_COMMITTER_DATE=2016-03-10T12:00:00 git c
 GIT_AUTHOR_DATE=2016-03-10T12:00:00 GIT_COMMITTER_DATE=2016-03-10T12:00:00 git commit --allow-empty -m "gitfiti" > /dev/null
 GIT_AUTHOR_DATE=2016-03-10T12:00:00 GIT_COMMITTER_DATE=2016-03-10T12:00:00 git commit --allow-empty -m "gitfiti" > /dev/null
 
-git remote add origin git@github.com:zachriggle/$REPO.git
-git pull origin master
-git push -u origin master
+git push -f -u origin fiti:fiti
+git checkout master
