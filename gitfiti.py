@@ -292,17 +292,14 @@ def commit(commitdate):
 def fake_it(image, start_date, username, repo, git_url, offset=0, multiplier=1):
     template = (
         '#!/bin/bash\n'
-        'REPO={0}\n'
-        'git init $REPO\n'
-        'cd $REPO\n'
+        'git checkout --orphan fiti\n'
         'touch README.md\n'
         'git add README.md\n'
         'touch gitfiti\n'
         'git add gitfiti\n'
         '{1}\n'
-        'git remote add origin {2}:{3}/$REPO.git\n'
-        'git pull origin master\n'
-        'git push -u origin master\n'
+        'git push -f -u origin fiti:fiti\n'
+        'git checkout master\n'
     )
 
     strings = []
@@ -328,10 +325,10 @@ def request_user_input(prompt='> '):
 def main():
     print(TITLE)
 
-    ghe = request_user_input(
-        'Enter GitHub URL (leave blank to use {}): '.format(GITHUB_BASE_URL))
+    ghe = GITHUB_BASE_URL #request_user_input(
+        # 'Enter GitHub URL (leave blank to use {}): '.format(GITHUB_BASE_URL))
 
-    username = request_user_input('Enter your GitHub username: ')
+    username = 'zachriggle' # request_user_input('Enter your GitHub username: ')
 
     git_base = ghe if ghe else GITHUB_BASE_URL
 
@@ -341,11 +338,11 @@ def main():
 
     m = calculate_multiplier(max_daily_commits)
 
-    repo = request_user_input(
-        'Enter the name of the repository to use by gitfiti: ')
+    repo = 'gitfiti' # request_user_input(
+        # 'Enter the name of the repository to use by gitfiti: ')
 
-    offset = request_user_input(
-        'Enter the number of weeks to offset the image (from the left): ')
+    offset = '0' # request_user_input(
+        # 'Enter the number of weeks to offset the image (from the left): ')
 
     offset = int(offset) if offset.strip() else 0
 
@@ -359,19 +356,19 @@ def main():
         '(this option generates WAY more commits)\n'
         'Any other input will cause the default matching behavior'
     ).format(max_daily_commits))
-    match = request_user_input()
+    match = 'gitfiti' # request_user_input()
 
     match = m if (match == 'gitfiti') else 1
 
     print('Enter file(s) to load images from (blank if not applicable)')
-    img_names = request_user_input().split(' ')
+    img_names =  [''] #request_user_input().split(' ')
 
     loaded_images = load_images(img_names)
     images = dict(IMAGES, **loaded_images)
 
     print('Enter the image name to gitfiti')
     print('Images: ' + ', '.join(images.keys()))
-    image = request_user_input()
+    image = 'hack' # request_user_input()
 
     image_name_fallback = FALLBACK_IMAGE
 
@@ -386,10 +383,7 @@ def main():
     start_date = get_start_date()
     fake_it_multiplier = m * match
 
-    if not ghe:
-        git_url = 'git@github.com'
-    else:
-        git_url = request_user_input('Enter Git URL like git@site.github.com: ')
+    git_url = 'git@github.com'
 
     output = fake_it(image, start_date, username, repo, git_url, offset,
                      fake_it_multiplier)
