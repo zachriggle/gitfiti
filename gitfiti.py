@@ -163,6 +163,14 @@ ONEUP_STR = str_to_sprite('''
 ''')
 
 
+HACKTHEPLANET = str_to_sprite("""
+* *         *         *             *
+* *  ** *** * *  *** *** ***  *** *  ** **  *** ***
+*** * * *   **    *  * * **   * * * * * * * **   *
+* * *** *** * *   ** * * ***  *** * *** * * ***  *                             *
+""")
+
+
 IMAGES = {
   'kitty': KITTY,
   'oneup': ONEUP,
@@ -173,6 +181,7 @@ IMAGES = {
   'hello': HELLO,
   'hireme': HIREME,
   'oneup_str': ONEUP_STR,
+  'hack': HACKTHEPLANET,
 }
 
 
